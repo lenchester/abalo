@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create('ab_article_has_articlecategories', function (Blueprint $table) {
+            $table->unsignedTinyInteger('id')->primary();
+            $table->unsignedTinyInteger('ab_articlecategory_id');
+            $table->unsignedTinyInteger('ab_article_id');
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('ab_article_has_articlecategories');
     }
 };
