@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ab_articles', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id')->primary();
+            $table->id();
             $table->string('ab_name',80);
             $table->integer('ab_price');
             $table->string('ab_description', 1000);
