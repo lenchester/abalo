@@ -9,4 +9,5 @@ class ab_article extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
 }
