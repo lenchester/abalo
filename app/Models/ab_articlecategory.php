@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ab_articlecategory extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
 }
