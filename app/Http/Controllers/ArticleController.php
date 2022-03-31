@@ -11,7 +11,7 @@ class ArticleController extends Controller
     public function index(Request $request){
         $search = $request->get('search');
         if($search) {
-            $articles = DB::table('ab_articles')->select('ab_name')->where('ab_name', 'LIKE','%'.$search.'%')->get();
+            $articles = DB::table('ab_articles')->select('ab_name')->where('ab_name', 'ILIKE','%'.$search.'%')->get();
         } else {
             $articles = ab_article::all();
         }
