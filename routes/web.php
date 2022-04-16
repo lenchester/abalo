@@ -22,4 +22,4 @@ Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->n
 Route::get('/isloggedin', [App\Http\Controllers\AuthController::class, 'isloggedin'])->name('haslogin');
 
 Route::get('/articles/', [\App\Http\Controllers\ArticleController::class, 'index']);
-
+Route::get('/learnjs', [\App\Http\Controllers\ArticleController::class, 'learn_js']);

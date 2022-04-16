@@ -17,4 +17,8 @@ class ArticleController extends Controller
         }
         return view('articles',['articles'=>$articles]);
     }
+
+    public function learn_js(Request $request){
+        return view('js_learning');
+    }
 }

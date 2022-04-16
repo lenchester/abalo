@@ -24,7 +24,7 @@ for(let i = 0; i < exampl_arr.length; i++){
 }
 
 console.log("array operations");
-exampl_arr.push(5)
-console.log(exampl_arr[4])
-
-
+exampl_arr.push(5);
+console.log("new element", exampl_arr[4]);
+exampl_arr.pop();
+console.log("last element", exampl_arr[4]);
