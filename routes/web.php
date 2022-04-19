@@ -23,3 +23,4 @@ Route::get('/isloggedin', [App\Http\Controllers\AuthController::class, 'islogged
 
 Route::get('/articles/', [\App\Http\Controllers\ArticleController::class, 'index']);
 Route::get('/learnjs', [\App\Http\Controllers\ArticleController::class, 'learn_js']);
+Route::get('/jsonread',[\App\Http\Controllers\ArticleController::class, 'json_reader']);

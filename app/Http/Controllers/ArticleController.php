@@ -21,4 +21,8 @@ class ArticleController extends Controller
     public function learn_js(Request $request){
         return view('js_learning');
     }
+
+    public function json_reader(Request $request){
+        return view('json_reader');
+    }
 }
