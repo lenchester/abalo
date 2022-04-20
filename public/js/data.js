@@ -12,3 +12,16 @@ var data = {
         { id: 2, name: 'Garten' }
     ]
 };
+
+function getAnzahlProdukteOfKategorie(data, category){
+    let count = 0;
+
+    for(let i =0; i < data.produkte.length; i++){
+        if(data.produkte[i].kategorie === category){
+            count += data.produkte[i].anzahl
+        }
+    }
+    console.log(count)
+}
+
+getAnzahlProdukteOfKategorie(data, 1)
