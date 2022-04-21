@@ -24,3 +24,6 @@ Route::get('/isloggedin', [App\Http\Controllers\AuthController::class, 'islogged
 Route::get('/articles/', [\App\Http\Controllers\ArticleController::class, 'index']);
 Route::get('/learnjs', [\App\Http\Controllers\ArticleController::class, 'learn_js']);
 Route::get('/jsonread',[\App\Http\Controllers\ArticleController::class, 'json_reader']);
+Route::get('/newarticle', [\App\Http\Controllers\ArticleController::class, 'new_article']);
+Route::post('/newarticle', [\App\Http\Controllers\ArticleController::class, 'insert_article']);
+
