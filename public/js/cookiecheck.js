@@ -50,5 +50,5 @@ if(cookie_consent != ""){
     //document.getElementById("cookieNotice").style.display = "none";
 }
 
-//deleteCookie("cookieaccept")
-console.log("cookieaccept=" + getCookie("cookieaccept"))
+deleteCookie("cookieaccept");
+console.log("cookieaccept=" + getCookie("cookieaccept"));
