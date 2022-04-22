@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
+    /*
      * Run the migrations.
      *
      * @return void
@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ab_users', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('ab_name',80);
             $table->string('ab_password',200);
             $table->string('ab_mail',200)->unique();
