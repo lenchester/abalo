@@ -1,28 +1,60 @@
-const navList = document.createElement('ul');
-const navListElements = ["Home", "Kategorien", "Verkaufen", "Unternehmen", "Philosophie", "Karriere"]
-for (let i = 0; i < navListElements.length; i++)
+//const navList = document.createElement('ul');
+const navListElements = [
+    {
+        name: "Home",
+        subitems: []
+    },
+    {
+        name:"Kategorien",
+        subitems:[]
+    },
+    {
+        name:"Verkaufen",
+        subitems: []
+    },
+    {
+        name:"Unternehmen",
+        subitems:[
+            {
+                name:"Philosophie",
+                subitems:[]
+            },
+            {
+                name: "Karriere",
+                subitems: []
+            }
+        ]
+    }];
+
+function renderList(lst)
 {
-    let li = document.createElement('li');
-    li.innerHTML = navListElements[i];
-    navList.appendChild(li);
-
+    let outerUl = document.createElement('ul')
+    for (let i = 0; i < lst.length; i++)
+    {
+        let listNode = document.createElement('li');
+        listNode.innerHTML = lst[i].name;
+        outerUl.appendChild(listNode);
+        if(lst[i].subitems != null && lst[i].subitems.length != 0)
+        {
+            let innerUl = document.createElement('ul')
+            let innerList = lst[i].subitems;
+            for (let j = 0; j < innerList.length; j++)
+            {
+                let innerListElement = innerList[j].name;
+                let innerListNode = document.createElement('li');
+                innerListNode.innerHTML = innerListElement;
+                innerUl.appendChild(innerListNode);
+            }
+            outerUl.appendChild(innerUl);
+        }
+    }
+    document.body.prepend(outerUl);
 }
-/*let li1 = document.createElement('li');
-li1.innerHTML = "Unternehmen";
-navList.appendChild(li1);
 
-let ul1 = document.createElement('ul');
-
-let li2 = document.createElement('li');
-li2.innerHTML = "Philosophie";
-let li3 = document.createElement('li');
-li3.innerHTML = "Karriere";
-
-ul1.appendChild(li2);
-ul1.appendChild(li3);*/
+renderList(navListElements);
 
 
 
 
-document.body.prepend(navList);
+//document.body.prepend(navList);
 
