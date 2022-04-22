@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+@if($errors->any())
+    <div>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div id = "error"></div>
     <div id="container">
         <script>
