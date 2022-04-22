@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ab_articlecategories', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('ab_name');
             $table->string('ab_description',1000)->nullable();
             $table->unsignedTinyInteger('ab_parent')->nullable();
