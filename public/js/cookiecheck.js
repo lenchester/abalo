@@ -29,6 +29,7 @@ function setCookie(name, value, options = {}) {
 
     document.cookie = updatedCookie;
 }
+
 function deleteCookie(name) {
     setCookie(name, "", {
         'max-age': -1
@@ -36,19 +37,19 @@ function deleteCookie(name) {
 }
 
 function acceptCookieConsent(){
-    deleteCookie('cookieaccept');
     setCookie('cookieaccept', 1, 360);
     document.getElementById("cookieNotice").style.display = "none";
 }
 
 let cookie_consent = getCookie("cookieaccept");
-if(cookie_consent != ""){
-    document.getElementById("cookieNotice").style.display = "none";
-}else{
+
+if(cookie_consent == null)
+{
     document.getElementById("cookieNotice").style.display = "block";
-    //setCookie('cookieaccept', 'true', {secure: true, 'max-age': 3600});
-    //document.getElementById("cookieNotice").style.display = "none";
+}
+else
+{
+    document.getElementById("cookieNotice").style.display = "none";
 }
 
-deleteCookie("cookieaccept");
 console.log("cookieaccept=" + getCookie("cookieaccept"));
