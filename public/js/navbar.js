@@ -26,32 +26,42 @@ const navListElements = [
         ]
     }];
 
-function renderList(lst)
+class navbar
 {
-    let outerUl = document.createElement('ul')
-    for (let i = 0; i < lst.length; i++)
-    {
-        let listNode = document.createElement('li');
-        listNode.innerHTML = lst[i].name;
-        outerUl.appendChild(listNode);
-        if(lst[i].subitems != null && lst[i].subitems.length != 0)
-        {
-            let innerUl = document.createElement('ul')
-            let innerList = lst[i].subitems;
-            for (let j = 0; j < innerList.length; j++)
-            {
-                let innerListElement = innerList[j].name;
-                let innerListNode = document.createElement('li');
-                innerListNode.innerHTML = innerListElement;
-                innerUl.appendChild(innerListNode);
-            }
-            outerUl.appendChild(innerUl);
-        }
+    constructor(lst) {
+        this.lst = lst;
     }
-    document.body.prepend(outerUl);
+
+    renderList()
+    {
+        let outerUl = document.createElement('ul')
+        for (let i = 0; i < this.lst.length; i++)
+        {
+            let listNode = document.createElement('li');
+            listNode.innerHTML = this.lst[i].name;
+            outerUl.appendChild(listNode);
+            if(this.lst[i].subitems != null && this.lst[i].subitems.length != 0)
+            {
+                let innerUl = document.createElement('ul');
+                let innerList = this.lst[i].subitems;
+                for (let j = 0; j < innerList.length; j++)
+                {
+                    let innerListElement = innerList[j].name;
+                    let innerListNode = document.createElement('li');
+                    innerListNode.innerHTML = innerListElement;
+                    innerUl.appendChild(innerListNode);
+                }
+                outerUl.appendChild(innerUl);
+            }
+        }
+        document.body.prepend(outerUl);
+        outerUl.setAttribute("id", "navbar");
+    }
+
 }
 
-renderList(navListElements);
+let nav = new navbar(navListElements);
+nav.renderList();
 
 
 

@@ -7,6 +7,7 @@
     <title>articles</title>
 </head>
 <body>
+
     <h1>Warenkorb</h1>
     <table>
         <thead>
@@ -74,6 +75,7 @@
             article.innerHTML = "[ - ]";
             article.removeEventListener('click', addToCart);
             article.addEventListener('click', removeFromCart);
+
         }
 
         function removeFromCart(e)
@@ -96,6 +98,8 @@
         }
 
     </script>
+
+
 
 </body>
 </html>

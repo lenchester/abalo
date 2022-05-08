@@ -17,6 +17,7 @@
     </div>
 @endif
     <div id = "error"></div>
+    <p id="xhrResponse">123</p>
     <div id="container">
         <script>
             // function sendNewArticle(){
@@ -25,6 +26,7 @@
             function validateForm(e) {
                 const name = document.getElementById('article_name');
                 const price = document.getElementById('article_price');
+                const desc = document.getElementById('article_desc');
                 const errorElement = document.getElementById('error');
                 let messages = [];
 
@@ -41,7 +43,29 @@
                     e.preventDefault();
                     errorElement.innerText = messages.join(', ');
                 }
+                else
+                {
+                    e.preventDefault();
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/newarticle", true);
+                    xhr.onreadystatechange = function (){
+                        if(xhr.status === 200)
+                        {
+                            document.getElementById('xhrResponse').innerHTML = xhr.responseText;
+                        }
 
+                        if(xhr.status === 422)
+                        {
+                            document.getElementById('xhrResponse').innerHTML = "Error: " + xhr.responseText;
+                        }
+
+                    }
+                    let formData = new FormData();
+                    formData.append("article_name", name.value);
+                    formData.append("article_price", price.value);
+                    formData.append("article_desc", desc.value);
+                    xhr.send(formData);
+                }
 
             }
 
@@ -72,6 +96,7 @@
             inputName.setAttribute('id', 'article_name');
             inputDesc.setAttribute('type', 'text');
             inputDesc.setAttribute('name', 'article_desc');
+            inputDesc.setAttribute('id', 'article_desc');
             inputPrice.setAttribute('type', 'text');
             inputPrice.setAttribute('name', 'article_price');
             inputPrice.setAttribute('id', 'article_price');
@@ -100,6 +125,7 @@
 
             container.appendChild(form);
         </script>
+
     </div>
 </body>
 </html>

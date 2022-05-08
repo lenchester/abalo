@@ -13,7 +13,7 @@ var data = {
     ]
 };
 
-function getMaxPreis()
+function getMaxPreis(data)
 {
     let max = 0;
     for (let i = 0; i < data.produkte.length; i++)
@@ -27,7 +27,7 @@ function getMaxPreis()
     console.log("Max price " + max);
 }
 
-function getMinPreisProdukt()
+function getMinPreisProdukt(data)
 {
     let min = data.produkte[0].preis;
     let minIdx = 0;
@@ -42,7 +42,7 @@ function getMinPreisProdukt()
     console.log("Cheapest product" + data.produkte[minIdx]);
 }
 
-function getPreisSum()
+function getPreisSum(data)
 {
     let priceSum = 0;
     for (let i = 0; i < data.produkte.length; i++)
@@ -52,7 +52,7 @@ function getPreisSum()
     console.log("Prices sum " + priceSum);
 }
 
-function getGesamtWert()
+function getGesamtWert(data)
 {
     let gesamtWert = 0;
     for (let i = 0; i < data.produkte.length; i++)
@@ -62,9 +62,14 @@ function getGesamtWert()
     console.log("GesamtWert " + gesamtWert);
 }
 
-function getAnzahlProdukteOfKategorie()
+function getAnzahlProdukteOfKategorie(data, kategorie)
 {
+    let kategorieName = kategorie.toUpperCase();
+    let kategorieID;
+    for (let i = 0; i < data.kategorie.length; i++)
+    {
 
+    }
 }
 
 

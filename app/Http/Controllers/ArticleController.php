@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\ab_article;
+use http\Message;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\NewArticleRequest;
+use mysql_xdevapi\Exception;
 
 class ArticleController extends Controller
 {
@@ -20,8 +22,18 @@ class ArticleController extends Controller
         return view('articles',['articles'=>$articles]);
     }
 
+    public function ausgabe()
+    {
+        return view('articlesAPI');
+    }
+
+
     public function new_article(Request $request){
         return view('newarticle');
+    }
+
+    public function new_articleAPI(Request $request){
+        return view('newarticleAPI');
     }
 
     public function insert_article(NewArticleRequest $request){
@@ -31,8 +43,15 @@ class ArticleController extends Controller
         $newArticle->ab_description = $request->post('article_desc');
         $newArticle->ab_creator_id = '5';
         $newArticle->ab_createdate = '1970-01-01 00:00:00';
-        $newArticle->save();
-        return redirect()->route('articles');
+        try {
+            $newArticle->save();
+            return response('OK', 200);
+        }
+        catch (Throwable $e)
+        {
+            return response($e->getMessage(), 422);
+        }
+        //return redirect()->route('articles');
     }
 
     public function learn_js(Request $request){
@@ -42,6 +61,15 @@ class ArticleController extends Controller
     public function json_reader(Request $request){
         return view('json_reader');
     }
+
+    public function simpleAjaxRequest(Request $request){
+        return view('3-ajax1-static');
+    }
+
+    public function periodicAjaxRequest(Request $request){
+        return view('3-ajax2-periodic');
+    }
+
 
 }
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 id="helloBanner">123</h1>
+<script>
+    let xhr = new XMLHttpRequest();
+    setInterval(function (){
+        xhr.open("GET", 'static/message.json', true);
+        xhr.responseType = "json";
+        xhr.onreadystatechange = function ()
+        {
+            if(xhr.readyState === 4)
+            {
+                if (xhr.status === 200)
+                {
+                    let helloMessage = xhr.response;
+                    console.log(helloMessage);
+                    document.getElementById("helloBanner").innerHTML = helloMessage.message;
+                }
+            }
+        }
+        xhr.send();}, 3000);
+</script>
+</body>
+</html>

@@ -19,10 +19,16 @@ Route::get('/', function () {
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 Route::get('/isloggedin', [App\Http\Controllers\AuthController::class, 'isloggedin'])->name('haslogin');
-
 Route::get('/articles/', [\App\Http\Controllers\ArticleController::class, 'index'])->name('articles');
 Route::get('/learnjs', [\App\Http\Controllers\ArticleController::class, 'learn_js']);
 Route::get('/jsonread',[\App\Http\Controllers\ArticleController::class, 'json_reader']);
 Route::get('/newarticle', [\App\Http\Controllers\ArticleController::class, 'new_article'])->name('newarticle');
 Route::post('/newarticle', [\App\Http\Controllers\ArticleController::class, 'insert_article']);
+Route::get('/ajax1', [\App\Http\Controllers\ArticleController::class, 'simpleAjaxRequest']);
+Route::get('/ajax2', [\App\Http\Controllers\ArticleController::class, 'periodicAjaxRequest']);
+
+
+Route::get('/articlesAPI', [\App\Http\Controllers\ArticleController::class, 'ausgabe']);
+Route::get('/newarticleAPI', [\App\Http\Controllers\ArticleController::class,'new_articleAPI']);
+
 
