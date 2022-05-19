@@ -10,7 +10,11 @@
 <body>
 <div id='app'>
     <site-header></site-header>
-    <site-body></site-body>
+    @verbatim
+    <site-body :show-impressum="showImpressum"></site-body>
+
+    <site-footer @show="show"></site-footer>
+    @endverbatim
 </div>
 <div id="cookieNotice" class="light display-right" style="display: none;">
     <div id="closeIcon" style="display: none;">
@@ -30,18 +34,36 @@
 
 <script type="module">
     import SiteHeader from './js/siteheader.js';
-    import SiteBody from './js/sitebody.js'
+    import SiteBody from './js/sitebody.js';
+    import SiteFooter from './js/sitefooter.js';
     var vm = Vue.createApp({
-        components:
-            {
+        data() {
+            return {
+                showImpressum: false
+            };
+        },
+        components: {
                 SiteHeader,
-                SiteBody
+                SiteBody,
+                SiteFooter
+        },
+        methods: {
+            show(){
+                this.showImpressum = !this.showImpressum;
             }
+        }
+
 
     }).mount('#app');
 
 </script>
-<script src = 'js/cookiecheck.js'></script>
+
 </body>
 </html>
 
+<script>
+    import Sitefooter from "../../public/js/sitefooter";
+    export default {
+        components: {Sitefooter}
+    }
+</script>
