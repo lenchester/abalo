@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\NewArticleRequest;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class ArticleAPIController extends Controller
 {
@@ -26,7 +28,6 @@ class ArticleAPIController extends Controller
 
     public function available_articles(Request $request)
     {
-
         if($request->get('shoppingcartid') != null)
         {
             $available_articles = DB::table('ab_articles')
@@ -70,7 +71,7 @@ class ArticleAPIController extends Controller
         $newshoppingcartitem->ab_article_id = $articleid;
         $newshoppingcartitem->ab_createdate = DB::raw('CURRENT_TIMESTAMP');
         $newshoppingcartitem->save();
-        return response()->json(array($shoppingcartid));
+        return response()->json($shoppingcartid);
     }
 
     public function remove_from_cart($shoppingcartid, $articleid)
@@ -85,7 +86,7 @@ class ArticleAPIController extends Controller
         {
             return $this->remove_all_from_cart($shoppingcartid);
         }
-        return response()->json(array($shoppingcartid));
+        return response()->json($shoppingcartid);
     }
 
     public function remove_all_from_cart($shoppingcartid)
@@ -93,6 +94,6 @@ class ArticleAPIController extends Controller
         DB::table('ab_shoppingcart')
             ->where('id', '=', $shoppingcartid)
             ->delete();
-        return response()->json(array(null));
+        return response()->json(null);
     }
 }

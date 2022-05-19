@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/> <title>First Vue</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- examples of directives -->
+    <div class ="header-wrapper">
+        <div v-if="showheader">
+            <h1>{{ header }}</h1>
+        </div>
+        <div v-else>
+            No header available
+        </div>
+    </div>
+    <ul>
+        <li v-for="car in cars">
+            <a v-on:click="cars.push('one more...')">{{car}}</a>
+        </li>
+    </ul>
+
+    <!-- v-model with select -->
+    <select v-model="currentOption">
+        <option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+    </select>
+    Selected: {{ currentOption}}
+
+    <div class="personslist-wrapper">
+        <div v-for="person in persons" v-bind:key="person.id">
+            {{person.name}}
+        </div>
+    </div>
+
+    <a v-bind:href="url" v-bind:class="{'class-a': showA, 'class-b': showB}"> Link</a>
+    <div class="inputdata">
+        {{ inputdata }} <br>
+        <input type="text" v-model="inputdata">
+    </div>
+
+</div>
+<script>
+    let appdata = {
+        msg: 'Learning Vue'
+    };
+    let vm = Vue.createApp({
+        data() {
+            return {
+                inputdata: null,
+                showheader: true,
+                header: 'learn Vue',
+                cars: ['VW', 'BMW', 'Opel', 'Mercedes'],
+                persons: [
+                    {id: 1, name: 'Suse'},
+                    {id: 2, name: 'Max'},
+                ],
+                url: 'fh-aachen.example',
+                linkTitle: 'My example title',
+                showA: true,
+                showB: false,
+                currentOption: 'a',
+                options: [{
+                    text: 'A',
+                    value: 'a'
+                }, {
+                    text: 'B',
+                    value: 'b'
+                }]
+            };
+        },
+        created() {
+            console.log('created');
+        }
+    }).mount('#app');
+    window.setTimeout(function(){
+        vm.$data.cars.push('Porsche');
+    }, 2000);
+</script> </body>
+</html>
+<script>
+    import AsyncComponentWrapper from "../js/vue";
+    export default {
+        components: {AsyncComponentWrapper}
+    }
+</script>

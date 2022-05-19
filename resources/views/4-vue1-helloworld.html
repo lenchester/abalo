@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/> <title>First Vue</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{helloworld}}
+</div>
+<script>
+    let vm = Vue.createApp({
+        data() {
+            return {
+                helloworld: 'Hello World!'
+            }
+        },
+        created() {
+            console.log('created');
+        }
+    }).mount('#app');
+
+</script> </body>
+</html>
+
