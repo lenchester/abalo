@@ -27,6 +27,12 @@ class ArticleController extends Controller
         return view('articlesAPI');
     }
 
+    public function ausgabeNewsite()
+    {
+        return view('newsite');
+    }
+
+
 
     public function new_article(Request $request){
         return view('newarticle');

@@ -31,11 +31,14 @@ Route::get('/ajax2', [\App\Http\Controllers\ArticleController::class, 'periodicA
 Route::get('/articlesAPI', [\App\Http\Controllers\ArticleController::class, 'ausgabe']);
 Route::get('/newarticleAPI', [\App\Http\Controllers\ArticleController::class,'new_articleAPI']);
 
-
 Route::get('/learnvue', function (){ return view('learnvue');});
 Route::prefix('learnvue')->group(function (){
     Route::get('/4-vue1-helloworld.html', function (){
         return view('4-vue1-helloworld');
     });
 });
+
+///////////////////////NEWSITE:
+Route::get('/newsite', [\App\Http\Controllers\ArticleController::class, 'ausgabeNewsite']);
+
 

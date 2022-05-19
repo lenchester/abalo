@@ -21,13 +21,27 @@ use App\Http\Controllers\newarticleAPIController;
 /{shoppingcartid}/{articleid}/{creatorid}
 /{shoppingcartid}/{articleid}
 });*/
-Route::get('/articlesAPI', [ArticleAPIController::class, 'search']);
 
 Route::post('/newarticleAPI', [newarticleAPIController::class,'insert_article']);
 
-
+Route::get('/articlesAPI', [ArticleAPIController::class, 'search']);
 Route::get('/articlesAPI/availableitems', [ArticleAPIController::class, 'available_articles']);
 Route::get('/articlesAPI/shoppingcartitems', [ArticleAPIController::class, 'shoppingcart_items']);
 Route::post('/articlesAPI/addtocart', [ArticleAPIController::class, 'add_to_cart']);
 Route::delete('/articlesAPI/removefromcart/{shoppingcartid}/{articleid}', [ArticleAPIController::class, 'remove_from_cart']);
 Route::delete('/articlesAPI/emptycart/{shoppingcartid}', [ArticleAPIController::class, 'remove_all_from_cart']);
+
+
+////////////////////////////////////////////////////////////////////// NEWARTIClE:
+Route::get('/newsite', [ArticleAPIController::class, 'search']);
+Route::get('/newsite/availableitems', [ArticleAPIController::class, 'available_articles']);
+Route::get('/newsite/shoppingcartitems', [ArticleAPIController::class, 'shoppingcart_items']);
+Route::post('/newsite/addtocart', [ArticleAPIController::class, 'add_to_cart']);
+Route::delete('/newsite/removefromcart/{shoppingcartid}/{articleid}', [ArticleAPIController::class, 'remove_from_cart']);
+Route::delete('/newsite/emptycart/{shoppingcartid}', [ArticleAPIController::class, 'remove_all_from_cart']);
+
+
+
+
+
+

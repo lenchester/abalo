@@ -219,6 +219,7 @@
             }
         }
     }).mount('#app');
+
 </script>
 
 
