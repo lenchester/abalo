@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -5,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>articles</title>
+    <script src="js/vue.js"></script>
 </head>
 <body>
 
@@ -22,10 +24,8 @@
     </tbody>
 </table>
 
-<form method="get" action="/articles/">
-    <label for="search">search</label>
-    <input type="text" id="search" name="search">
-</form>
+
+
 
 <table>
     <thead>
@@ -36,15 +36,73 @@
     </tr>
     </thead>
     <tbody id="articles">
-    {{--@foreach($articles as $article)
-        <tr>
-            <td>{{$article->ab_name}}</td>
-            <td>{{$article->ab_price}}</td>
-            <td><a href="javascript:;" class="add-button">[ + ]</a></td>
-        </tr>
-    @endforeach--}}
     </tbody>
 </table>
+
+<div id="app">
+    Search:<br>
+    <input type="text" v-model="search"><br>
+    @{{ search }}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Beschreibung</th>
+            <th>Creator ID</th>
+            <th>Createdate</th>
+        </tr>
+        <tbody v-if="this.search.length > 2">
+        <tr v-for="item in itemfilter.slice(0,5)" :key ="item.ab_name" >
+            <td class="shop-item-title">@{{item.ab_name}}</td>
+            <td class="shop-item-price">@{{item.ab_price}}</td>
+            <td>@{{item.ab_description}}</td>
+            <td>@{{item.ab_creator_id}}</td>
+            <td>@{{item.ab_createdate}}</td>
+            <td>
+                <button type="button" v-on:click="addToCart(item.id)">
+                    add to cart
+                </button>
+            </td>
+        </tr>
+        </tbody>
+        <tbody v-else>
+        <tr v-for="item in itemfilter" :key ="item.ab_name" >
+            <td>@{{item.ab_name}}</td>
+            <td>@{{item.ab_price}}</td>
+            <td>@{{item.ab_description}}</td>
+            <td>@{{item.ab_creator_id}}</td>
+            <td>@{{item.ab_createdate}}</td>
+            <td><button type="button" v-on:click="addToCart(item.id)">
+                    add to cart
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h2>Warenkorb</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Beschreibung</th>
+            <th>Creator ID</th>
+            <th>Createdate</th>
+        </tr>
+        <tbody>
+        <tr v-for="item in shoppingcart" :key ="item.ab_name" >
+            <td class="shop-item-title">@{{item.ab_name}}</td>
+            <td class="shop-item-price">@{{item.ab_price}}</td>
+            <td>@{{item.ab_description}}</td>
+            <td>@{{item.ab_creator_id}}</td>
+            <td>@{{item.ab_createdate}}</td>
+            <td><button type="button" v-on:click="removeFromCart(item.id)">
+                    remove from cart
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 <div id="cookieNotice" class="light display-right" style="display: none;">
@@ -64,12 +122,109 @@
 </div>
 <script src="js/cookiecheck.js"></script>
 <script src = "js/navbar.js"></script>
+<script>
+    var vm = Vue.createApp({
+        data(){
+            return{
+                search: "",
+                items: [],
+                shoppingcart: [],
+                shoppingcartid: null
+            };
+        },
+        mounted(){
+            fetch('/api/articlesAPI/availableitems').then(data=> data.json()).then(data =>{
+                console.log(data);
+                this.items  = data;
+            })
+                .catch(err=>console.log(err.message));
+
+        },
+        computed:{
+            itemfilter:function () {
+                console.log(this.search.length > 2)
+                return this.items.filter((article) => {
+                    if (this.search.length > 2) {
+                        return article.ab_name.toLowerCase().match(this.search.toLowerCase());
+                    } else {
+                        return true;
+                    }
+                });
+            }
+        },
+        methods: {
+            addToCart: function(itemId) {
+                console.log("item id" + itemId);
+                let xhr = new XMLHttpRequest();
+                let params = new FormData();
+
+                xhr.open("POST", "/api/articlesAPI/addtocart");
+                params.append("articleid", itemId);
+                params.append("creatorid", "5");
+                if(self.shoppingcartid)
+                {
+                    params.append("shoppingcartid", self.shoppingcartid);
+                }
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE)
+                    {
+                        if(!self.shoppingcartid)
+                        {
+                            let response_shoppingcartid = xhr.responseText;
+                            self.shoppingcartid = response_shoppingcartid;
+                        }
+                        vm.getCart();
+                        vm.getArticleList();
+                    }
+                };
+                xhr.send(params);
+                // this.$data.shoppingcart.push(this.$data.items.find(x => x.id === itemId));
+                // this.$data.items = this.$data.items.filter(item => item !== this.$data.items.find(x => x.id === itemId));
+            },
+            removeFromCart: function(itemId) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("DELETE", "/api/articlesAPI/removefromcart/" + self.shoppingcartid + "/" + itemId);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE)
+                    {
+                        vm.getCart();
+                        vm.getArticleList();
+                        if(xhr.responseText == '{}')
+                        {
+                            self.shoppingcartid = null;
+                            console.log("Shopping cart is empty, id = 0");
+                        }
+                    }
+                };
+                xhr.send();
+
+            },
+            getCart(){
+                console.log("getCart called");
+                let params = new URLSearchParams();
+                params.append("shoppingcartid", self.shoppingcartid);
+                fetch('/api/articlesAPI/shoppingcartitems?' + params.toString()).then(data => data.json()).then(data => {
+                    this.shoppingcart = data;
+                })
+            },
+            getArticleList(){
+                console.log("getArticleList called");
+                let params = new URLSearchParams();
+                params.append("shoppingcartid", self.shoppingcartid);
+                fetch('/api/articlesAPI/availableitems?'+ params.toString()).then(data=> data.json()).then(data =>{
+                    console.log(data);
+                    this.items  = data;
+                })
+                    .catch(err=>console.log(err.message));
+            }
+        }
+    }).mount('#app');
+</script>
 
 
 <script>
     function getAvailableItems(shoppingcartid)
     {
-
         console.log("shoppingcartid", shoppingcartid);
         document.getElementById('articles').innerHTML = "";
         let xhr = new XMLHttpRequest();
@@ -119,7 +274,6 @@
     }
     function getShoppingCart(shoppingcartid)
     {
-
         document.getElementById('cart').innerHTML = "";
         let xhr = new XMLHttpRequest();
         let params = new URLSearchParams();
@@ -174,8 +328,6 @@
                     cartButton.addEventListener('click', emptyCart);
                     controlContainer.appendChild(cartButton);
                     document.getElementById('cart').appendChild(tableRow);
-
-
                 }
             }
         }
@@ -244,78 +396,6 @@
         getAvailableItems(null);
 
     });
-
-
- /*   function addToCart(e)
-    {
-        let article = e.target;
-        let articleRow = article.parentElement.parentElement;
-        let cart = document.getElementById("cart");
-        cart.appendChild(articleRow);
-        article.setAttribute("class", "remove-button");
-        article.innerHTML = "[ - ]";
-        article.removeEventListener('click', addToCart);
-        article.addEventListener('click', removeFromCart);
-    }
-
-    function removeFromCart(e)
-    {
-        let article = e.target;
-        let articleRow = article.parentElement.parentElement;
-        let articles = document.getElementById("articles");
-        articles.appendChild(articleRow);
-        article.setAttribute("class", "add-button");
-        article.innerHTML = "[ + ]";
-        article.removeEventListener('click', removeFromCart);
-        article.addEventListener('click', addToCart);
-
-    }
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/articlesAPI" + window.location.search);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function (){
-        if(xhr.readyState === 4)
-        {
-            if(xhr.status === 200){
-                let data = JSON.parse(xhr.responseText);
-                console.log(data);
-                for (let i = 0; i < data.length; i++)
-                {
-                    let tableRow = document.createElement('tr'); //Article name and price columns
-                    tableRow.setAttribute('id', data[i].id);
-                    let nameCol = data[i].ab_name;
-                    let priceCol = data[i].ab_price;
-                    let tdNameCol = document.createElement('td');
-                    let tdPriceCol = document.createElement('td');
-                    tdNameCol.innerHTML = nameCol;
-                    tdPriceCol.innerHTML = priceCol;
-                    tableRow.appendChild(tdNameCol);
-                    tableRow.appendChild(tdPriceCol);
-
-                    let tdCartButtonWrapper = document.createElement('td'); //ADD/REMOVE cart button column
-                    let cartButton = document.createElement('a');
-                    cartButton.setAttribute('href', 'javascript:;');
-                    cartButton.setAttribute('class', 'add-button');
-                    cartButton.innerHTML = '[ + ]';
-                    tdCartButtonWrapper.appendChild(cartButton);
-                    tableRow.appendChild(tdCartButtonWrapper);
-
-                    document.getElementById('articles').appendChild(tableRow);
-                }
-
-                let addButtons = document.getElementsByClassName("add-button");
-                console.log(addButtons);
-
-                for (let i = 0; i < addButtons.length; i++)
-                {
-                    addButtons[i].addEventListener('click', addToCart);
-                }
-            }
-        }
-    }
-    xhr.send();
-*/
 </script>
 
 
