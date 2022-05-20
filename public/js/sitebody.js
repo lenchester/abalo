@@ -4,7 +4,10 @@ export default {
             search: "",
             items: [],
             shoppingcart: [],
-            shoppingcartid: null
+            shoppingcartid: null,
+            offset: 0,
+            pagesamount: 0,
+            buttons: []
         };
     },
     props:{
@@ -14,11 +17,7 @@ export default {
         }
     },
     mounted() {
-        fetch('/api/newsite/availableitems').then(data => data.json()).then(data => {
-            console.log(data);
-            this.items = data;
-        })
-            .catch(err => console.log(err.message));
+        this.getArticleListInit();
 
     },
     computed: {
@@ -35,10 +34,8 @@ export default {
     },
     methods: {
         addToCart: function (itemId) {
-            console.log("item id" + itemId);
             let xhr = new XMLHttpRequest();
             let params = new FormData();
-
             xhr.open("POST", "/api/newsite/addtocart");
             params.append("articleid", itemId);
             params.append("creatorid", "5");
@@ -53,7 +50,7 @@ export default {
                     }
                     console.log(this);
                     this.getCart();
-                    this.getArticleList();
+                    this.getPage();
                 }
             };
             xhr.send(params);
@@ -64,7 +61,7 @@ export default {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     this.getCart();
-                    this.getArticleList();
+                    this.getPage();
                     if (xhr.responseText == '{}') {
                         self.shoppingcartid = null;
                         console.log("Shopping cart is empty, id = 0");
@@ -82,24 +79,67 @@ export default {
                 this.shoppingcart = data;
             })
         },
-        getArticleList() {
-            console.log("getArticleList called");
+        getPage(offset) {
+            if(offset !== null)
+            {
+                this.offset = offset;
+            }
+            console.log("getPage called");
+            console.log(this.search);
+            console.log("offset" + this.offset)
             let params = new URLSearchParams();
-            params.append("shoppingcartid", self.shoppingcartid);
-            fetch('/api/newsite/availableitems?' + params.toString()).then(data => data.json()).then(data => {
+            if(this.shoppingcartid)
+            {
+                params.append("shoppingcartid", self.shoppingcartid);
+            }
+            params.append("offset", this.offset);
+            params.append("search", this.search);
+            fetch('./api/newsite/search' +'?'+ params.toString()).then(data => data.json()).then(data => {
                 console.log(data);
+                console.log("shoppingcartid in getPage = " + self.shoppingcartid);
                 this.items = data;
             })
                 .catch(err => console.log(err.message));
+        },
+
+        getArticleListInit() {
+            if (this.search.length > 2 || this.search.length ===0) {
+                this.offset = 0;
+                let params = new URLSearchParams();
+                if (this.shoppingcartid) {
+                    params.append("shoppingcartid", self.shoppingcartid);
+                }
+                params.append("search", this.search);
+                fetch('./api/newsite/getsearchnumber?' + '?' + params.toString()).then(data => data.json()).then(data => {
+                    let json = data;
+                    this.pagesamount = json[0].count;
+                    console.log(this.pagesamount);
+                    this.generateButtons();
+                    this.getPage();
+                })
+                    .catch(err => console.log(err.message));
+            }
+        },
+        generateButtons() {
+            let assocArray = []
+            let pagenumber = 1;
+            for (var i=0; i < this.pagesamount; i=i+5) {
+                var newElement = {};
+                newElement['number'] = pagenumber;
+                newElement['offset'] = i;
+                assocArray.push(newElement);
+                pagenumber++;
+            }
+            this.buttons = assocArray;
         }
     },
     template:
         `
             <div v-if="this.showImpressum===false">
             Search:<br>
-            <input type="text" v-model="search"><br>
+            <input type="text" v-model="search" v-on:keyup="getArticleListInit"><br>
             {{ search }}
-            <table>
+            <table class="table">
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
@@ -107,8 +147,8 @@ export default {
                     <th>Creator ID</th>
                     <th>Createdate</th>
                 </tr>
-                <tbody v-if="this.search.length > 2">
-                <tr v-for="item in itemfilter.slice(0,5)" :key="item.ab_name">
+                <tbody v-if="this.search.length > 2" >
+                <tr v-for="item in items" :key="item.ab_name">
                     <td class="shop-item-title">{{ item.ab_name }}</td>
                     <td class="shop-item-price">{{ item.ab_price }}</td>
                     <td>{{ item.ab_description }}</td>
@@ -136,7 +176,15 @@ export default {
                 </tr>
                 </tbody>
             </table>
-            <h2>Warenkorb</h2>
+            <br>
+            <div class="btn-group" role="group" aria-label="Basic example" v-for="button in buttons" :key="button.number" v-on:click="getPage(button.offset)">
+                <button type="button" class="btn btn-light btn-sm btn-outline-dark" >
+                    {{button.number}}
+                </button>
+            </div>
+            <br>
+            <br>
+            <h4>Warenkorb</h4>
             <table>
                 <tr>
                     <th>Name</th>
@@ -160,6 +208,8 @@ export default {
                 </tr>
                 </tbody>
             </table>
+            <br><br>
+
             </div>
         <div v-else>
         <h1></h1>

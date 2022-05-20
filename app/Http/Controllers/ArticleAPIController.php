@@ -33,14 +33,64 @@ class ArticleAPIController extends Controller
             $available_articles = DB::table('ab_articles')
                 ->leftJoin('ab_shoppingcart_item', 'ab_articles.id', '=', 'ab_shoppingcart_item.ab_article_id')
                 ->whereNull('ab_shoppingcart_item.id')
-                ->select('ab_articles.*')->orderBy('ab_name')->get();
+                ->select('ab_articles.*')->limit(5)->orderBy('ab_name')->get();
         }
         else
         {
-            $available_articles = DB::table('ab_articles')->select('ab_articles.*')->orderBy('ab_name')->get();
+            $available_articles = DB::table('ab_articles')->select('ab_articles.*')->orderBy('ab_name')->limit(5)->get();
         }
 
         return response()->json($available_articles);
+    }
+
+    public function search_offset(Request $request)
+    {
+        $search = $request->get('search');
+        $offset = $request->get('offset');
+        Log::debug($offset);
+        if($request->get('shoppingcartid') != null)
+        {
+            $available_articles = DB::table('ab_articles')
+                ->leftJoin('ab_shoppingcart_item', 'ab_articles.id', '=', 'ab_shoppingcart_item.ab_article_id')
+                ->whereNull('ab_shoppingcart_item.id')
+                ->select('ab_articles.*')->limit(5)
+                ->where('ab_name', 'ILIKE', '%' . $search . '%')
+                ->limit(5)
+                ->offset($offset)
+                ->orderBy('ab_name')->get();
+        }
+        else
+        {
+            $available_articles = DB::table('ab_articles')
+                ->select('ab_articles.*')
+                ->orderBy('ab_name')
+                ->where('ab_name', 'ILIKE', '%' . $search . '%')
+                ->limit(5)
+                ->offset($offset)
+                ->get();
+        }
+
+        return response()->json($available_articles);
+    }
+    public function number_of_search_results(Request $request){
+        $search = $request->get('search');
+        if($request->get('shoppingcartid') != null)
+        {
+            $number_of_results = DB::table('ab_articles')
+                ->leftJoin('ab_shoppingcart_item', 'ab_articles.id', '=', 'ab_shoppingcart_item.ab_article_id')
+                ->whereNull('ab_shoppingcart_item.id')
+                ->select( DB::raw('COUNT(ab_name)'))
+                ->where('ab_name', 'ILIKE', '%' . $search . '%')
+                ->get();
+        }
+        else
+        {
+            $number_of_results = DB::table('ab_articles')
+                ->select(DB::raw('COUNT(ab_name)'))
+                ->where('ab_name', 'ILIKE', '%' . $search . '%')
+                ->get();
+        }
+        return response()->json($number_of_results);
     }
 
     public function shoppingcart_items(Request $request)

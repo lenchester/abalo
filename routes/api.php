@@ -39,6 +39,8 @@ Route::get('/newsite/shoppingcartitems', [ArticleAPIController::class, 'shopping
 Route::post('/newsite/addtocart', [ArticleAPIController::class, 'add_to_cart']);
 Route::delete('/newsite/removefromcart/{shoppingcartid}/{articleid}', [ArticleAPIController::class, 'remove_from_cart']);
 Route::delete('/newsite/emptycart/{shoppingcartid}', [ArticleAPIController::class, 'remove_all_from_cart']);
+Route::get('/newsite/search', [ArticleAPIController::class, 'search_offset']);
+Route::get('/newsite/getsearchnumber', [ArticleAPIController::class,'number_of_search_results']);
 
 
 
