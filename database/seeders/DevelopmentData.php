@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ab_article_has_articlecategory;
 use App\Models\ab_articlecategory;
 use Illuminate\Database\Seeder;
 use App\Models\ab_user;
@@ -22,10 +23,12 @@ class DevelopmentData extends Seeder
         $this->seed_ab_users();
         $this->seed_ab_articles();
         $this->seed_ab_articlecategory();
+        $this->seed_article_has_articlecategory();
     }
 
-    private function seed_ab_articlecategory(){
-        $csvFile = fopen(base_path("data/articlecategory.csv"),'r');
+    private function seed_ab_articlecategory()
+    {
+        $csvFile = fopen(base_path("data/articlecategory.csv"), 'r');
 
         DB::table('ab_articlecategories')->truncate();
 
@@ -34,13 +37,12 @@ class DevelopmentData extends Seeder
 
         while (($data = fgetcsv($csvFile, 2000, ";")) !== FALSE) {
             if (!$firstline) {
-                if($data['2']=='NULL'){             //ab_parent == NULL
+                if ($data['2'] == 'NULL') {             //ab_parent == NULL
                     ab_articlecategory::create([
                         "id" => $data['0'],
                         "ab_name" => $data['1'],
                     ]);
-                }
-                else{
+                } else {
                     ab_articlecategory::create([
                         "id" => $data['0'],
                         "ab_name" => $data['1'],
@@ -54,8 +56,9 @@ class DevelopmentData extends Seeder
         fclose($csvFile);
     }
 
-    private function seed_ab_users(){
-        $csvFile = fopen(base_path("data/user.csv"),'r');
+    private function seed_ab_users()
+    {
+        $csvFile = fopen(base_path("data/user.csv"), 'r');
 
         DB::table('ab_users')->truncate();
 
@@ -67,7 +70,7 @@ class DevelopmentData extends Seeder
                 ab_user::create([
                     "id" => $data['0'],
                     "ab_name" => $data['1'],
-                    "ab_password" => sha1($data['2'].$salt),
+                    "ab_password" => sha1($data['2'] . $salt),
                     "ab_mail" => $data['3']
                 ]);
             }
@@ -77,8 +80,9 @@ class DevelopmentData extends Seeder
         fclose($csvFile);
     }
 
-    private function seed_ab_articles(){
-        $csvFile = fopen(base_path("data/articles.csv"),'r');
+    private function seed_ab_articles()
+    {
+        $csvFile = fopen(base_path("data/articles.csv"), 'r');
 
         DB::table('ab_articles')->truncate();
 
@@ -103,6 +107,27 @@ class DevelopmentData extends Seeder
 
         fclose($csvFile);
     }
+
+    public function seed_article_has_articlecategory()
+    {
+        $csvFile = fopen(base_path("data/article_has_articlecategory.csv"), 'r');
+
+        DB::table('ab_article_has_articlecategories')->truncate();
+
+        $firstline = true;
+
+        while (($data = fgetcsv($csvFile, 2000, ";")) !== FALSE) {
+            if (!$firstline) {
+
+                ab_article_has_articlecategory::create([
+                    "ab_articlecategory_id" => $data['0'],
+                    "ab_article_id" => $data['1'],
+                ]);
+            }
+            $firstline = false;
+        }
+    }
+}
 
 
     /*
@@ -135,4 +160,4 @@ class DevelopmentData extends Seeder
         fclose($csvFile);
     }
     */
-}
+
