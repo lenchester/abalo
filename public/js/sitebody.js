@@ -3,11 +3,11 @@ export default {
         return {
             search: "",
             items: [],
-            shoppingcart: [],
+            shoppingcart: null,
             shoppingcartid: null,
             offset: 0,
             pagesamount: 0,
-            buttons: []
+            pagebuttons: []
         };
     },
     props:{
@@ -18,7 +18,6 @@ export default {
     },
     mounted() {
         this.getArticleListInit();
-
     },
     computed: {
         itemfilter: function () {
@@ -50,7 +49,7 @@ export default {
                     }
                     console.log(this);
                     this.getCart();
-                    this.getPage();
+                    this.getPage(this.offset);
                 }
             };
             xhr.send(params);
@@ -61,7 +60,7 @@ export default {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     this.getCart();
-                    this.getPage();
+                    this.getPage(this.offset);
                     if (xhr.responseText == '{}') {
                         self.shoppingcartid = null;
                         console.log("Shopping cart is empty, id = 0");
@@ -127,10 +126,11 @@ export default {
                 var newElement = {};
                 newElement['number'] = pagenumber;
                 newElement['offset'] = i;
+                newElement['checked'] = false;
                 assocArray.push(newElement);
                 pagenumber++;
             }
-            this.buttons = assocArray;
+            this.pagebuttons = assocArray;
         }
     },
     template:
@@ -177,7 +177,7 @@ export default {
                 </tbody>
             </table>
             <br>
-            <div class="btn-group" role="group" aria-label="Basic example" v-for="button in buttons" :key="button.number" v-on:click="getPage(button.offset)">
+            <div class="btn-group" role="group" aria-label="Basic example" v-for="button in pagebuttons" :key="button.number" v-on:click="getPage(button.offset)">
                 <button type="button" class="btn btn-light btn-sm btn-outline-dark" >
                     {{button.number}}
                 </button>
@@ -185,13 +185,11 @@ export default {
             <br>
             <br>
             <h4>Warenkorb</h4>
+            <div v-if="this.shoppingcart !== null && this.shoppingcart.length > 0" >
             <table>
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
-                    <th>Beschreibung</th>
-                    <th>Creator ID</th>
-                    <th>Createdate</th>
                 </tr>
                 <tbody>
                 <tr v-for="item in shoppingcart" :key="item.ab_name">
@@ -208,6 +206,7 @@ export default {
                 </tr>
                 </tbody>
             </table>
+            </div>
             <br><br>
 
             </div>
