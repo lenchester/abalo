@@ -5368,9 +5368,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _site_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./site-header */ "./resources/js/components/site-header.vue");
-/* harmony import */ var _site_body__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./site-body */ "./resources/js/components/site-body.vue");
-/* harmony import */ var _site_footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./site-footer */ "./resources/js/components/site-footer.vue");
+/* harmony import */ var vue_cookieconsent_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-cookieconsent-component */ "./node_modules/vue-cookieconsent-component/src/index.js");
+/* harmony import */ var _site_header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./site-header */ "./resources/js/components/site-header.vue");
+/* harmony import */ var _site_body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./site-body */ "./resources/js/components/site-body.vue");
+/* harmony import */ var _site_footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./site-footer */ "./resources/js/components/site-footer.vue");
 //
 //
 //
@@ -5379,15 +5380,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "articles",
   components: {
-    SiteHeader: _site_header__WEBPACK_IMPORTED_MODULE_0__["default"],
-    SiteBody: _site_body__WEBPACK_IMPORTED_MODULE_1__["default"],
-    SiteFooter: _site_footer__WEBPACK_IMPORTED_MODULE_2__["default"]
+    SiteHeader: _site_header__WEBPACK_IMPORTED_MODULE_1__["default"],
+    SiteBody: _site_body__WEBPACK_IMPORTED_MODULE_2__["default"],
+    SiteFooter: _site_footer__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CookieConsent: vue_cookieconsent_component__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -28259,6 +28264,222 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/vue-cookieconsent-component/src/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/vue-cookieconsent-component/src/index.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _components_CookieConsent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/CookieConsent */ "./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_components_CookieConsent__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CookieConsent_vue_vue_type_template_id_227b1abf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CookieConsent.vue?vue&type=template&id=227b1abf& */ "./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=template&id=227b1abf&");
+/* harmony import */ var _CookieConsent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CookieConsent.vue?vue&type=script&lang=js& */ "./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CookieConsent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CookieConsent_vue_vue_type_template_id_227b1abf___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CookieConsent_vue_vue_type_template_id_227b1abf___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'CookieConsent',
+  props: {
+    // default
+    transition: {
+      type: String,
+      default: 'cookie-consent-transition'
+    },
+    message: {
+      type: String,
+      default: 'This website uses cookies to ensure you get the best experience on our website.'
+    },
+    // button
+    linkLabel: {
+      type: String,
+      default: 'Learn more'
+    },
+    buttonLabel: {
+      type: String,
+      default: 'Got it!'
+    },
+    href: {
+      type: String,
+      default: 'http://cookiesandyou.com'
+    },
+    target: {
+      type: String,
+      default: '_blank'
+    },
+    rel: {
+      type: String,
+      default: 'noopener'
+    },
+    // cookie
+    cookieName: {
+      type: String,
+      default: 'cookieconsent_status'
+    },
+    cookiePath: {
+      type: String,
+      default: '/'
+    },
+    cookieDomain: {
+      type: String,
+      default: ''
+    },
+    cookieExpiryDays: {
+      type: Number,
+      default: 365
+    }
+  },
+  data() {
+    return {
+      show: undefined
+    }
+  },
+  computed: {
+    cookie() {
+      return !this.getCookie(this.cookieName)
+    }
+  },
+  beforeMount() {
+    this.show = this.cookie
+  },
+  methods: {
+    dismiss() {
+      this.show = false
+      this.setCookie(this.cookieName, 1, this.cookieExpiryDays, this.cookieDomain, this.cookiePath)
+    },
+    getCookie(name) {
+      const value = `; ${document.cookie}`
+      const parts = value.split(`; ${name}=`)
+
+      return parts.length !== 2 ?
+        undefined :
+        parts.pop().split(';').shift()
+    },
+    setCookie(name, value, expiryDays, domain, path) {
+      const exdate = new Date()
+      exdate.setDate(exdate.getDate() + (expiryDays || 365))
+
+      const cookie = [
+        `${name}=${value}`,
+        `expires=${exdate.toUTCString()}`,
+        `path=${(path || '/')}`
+      ]
+
+      if (domain) {
+        cookie.push(`domain=${domain}`)
+      }
+
+      document.cookie = cookie.join(';')
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "./resources/js/components/articles.vue":
 /*!**********************************************!*\
   !*** ./resources/js/components/articles.vue ***!
@@ -28479,6 +28700,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_CookieConsent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../vue-loader/lib/index.js??vue-loader-options!./CookieConsent.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_vue_loader_lib_index_js_vue_loader_options_CookieConsent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=template&id=227b1abf&":
+/*!******************************************************************************************************************!*\
+  !*** ./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=template&id=227b1abf& ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_CookieConsent_vue_vue_type_template_id_227b1abf___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_CookieConsent_vue_vue_type_template_id_227b1abf___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_CookieConsent_vue_vue_type_template_id_227b1abf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../vue-loader/lib/index.js??vue-loader-options!./CookieConsent.vue?vue&type=template&id=227b1abf& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=template&id=227b1abf&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/articles.vue?vue&type=template&id=0c21a5f0&scoped=true&":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/components/articles.vue?vue&type=template&id=0c21a5f0&scoped=true& ***!
@@ -28547,6 +28801,106 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=template&id=227b1abf&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-cookieconsent-component/src/components/CookieConsent.vue?vue&type=template&id=227b1abf& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: _vm.transition } }, [
+    _vm.show
+      ? _c(
+          "div",
+          { staticClass: "cookie-consent", attrs: { role: "dialog" } },
+          [
+            _vm._t("message", function () {
+              return [
+                _c(
+                  "span",
+                  { staticClass: "cookie-consent-message" },
+                  [
+                    _vm._v("\n        " + _vm._s(_vm.message) + "\n        "),
+                    _vm._t("link", function () {
+                      return [
+                        _c(
+                          "a",
+                          _vm._b(
+                            {
+                              staticClass: "cookie-consent-link",
+                              attrs: { role: "button" },
+                            },
+                            "a",
+                            {
+                              href: _vm.href,
+                              target: _vm.target,
+                              rel: _vm.rel,
+                            },
+                            false
+                          ),
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(_vm.linkLabel) +
+                                "\n          "
+                            ),
+                          ]
+                        ),
+                      ]
+                    }),
+                  ],
+                  2
+                ),
+              ]
+            }),
+            _vm._v(" "),
+            _c(
+              "section",
+              { on: { click: _vm.dismiss } },
+              [
+                _vm._t("button", function () {
+                  return [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "cookie-consent-compliance",
+                        attrs: { type: "button" },
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.buttonLabel) +
+                            "\n        "
+                        ),
+                      ]
+                    ),
+                  ]
+                }),
+              ],
+              2
+            ),
+          ],
+          2
+        )
+      : _vm._e(),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/articles.vue?vue&type=template&id=0c21a5f0&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/articles.vue?vue&type=template&id=0c21a5f0&scoped=true& ***!
@@ -28565,12 +28919,17 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "container" },
     [
       _c("site-header"),
+      _vm._v(" "),
+      _c("div", { staticClass: "sidebar" }, [_vm._v("sidebar")]),
       _vm._v(" "),
       _c("site-body", { attrs: { "show-impressum": _vm.showImpressum } }),
       _vm._v(" "),
       _c("site-footer", { on: { show: _vm.show } }),
+      _vm._v(" "),
+      _c("cookie-consent"),
     ],
     1
   )
@@ -28598,7 +28957,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "content" }, [
     this.showImpressum === false
       ? _c(
           "div",
@@ -28936,7 +29295,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "footer" }, [
     _c("footer", [
       _c("p", [
         _c(
@@ -28984,7 +29343,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "header" }, [
       _c("ul", [
         _c("li", [_vm._v("Home")]),
         _vm._v(" "),

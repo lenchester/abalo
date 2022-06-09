@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="footer">
         <footer>
             <p><a v-on:click="showImpressum()">Impressum</a></p>
         </footer>

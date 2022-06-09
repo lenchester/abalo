@@ -1,12 +1,15 @@
 <template>
-    <div>
+    <div class="container">
         <site-header></site-header>
+        <div class="sidebar">sidebar</div>
         <site-body :show-impressum="showImpressum"></site-body>
         <site-footer  @show="show"></site-footer>
+        <cookie-consent/>
     </div>
 </template>
 
 <script>
+import CookieConsent from 'vue-cookieconsent-component'
 import SiteHeader from "./site-header";
 import SiteBody from "./site-body";
 import SiteFooter from "./site-footer";
@@ -15,7 +18,8 @@ export default {
     components: {
         SiteHeader,
         SiteBody,
-        SiteFooter
+        SiteFooter,
+        CookieConsent
     },
     data() {
         return {
