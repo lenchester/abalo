@@ -5382,6 +5382,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5396,13 +5404,48 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showImpressum: false
+      conn: null,
+      showImpressum: false,
+      info: ""
     };
   },
   methods: {
     show: function show() {
       this.showImpressum = !this.showImpressum;
+    },
+    sendMessage: function sendMessage() {
+      this.conn.send("Test");
+    },
+    sshow: function sshow(direction, msg) {
+      var li = document.createElement('li');
+      li.innerHTML = direction + ': ' + msg;
+      document.getElementById('log').append(li);
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.conn = new WebSocket('ws://localhost:8085/chat');
+
+    this.conn.onmessage = function (e) {
+      if (e.data != null && e.data !== "") {
+        alert(e.data);
+      } // console.log(e.data);
+      // this.info = e.data;
+
+    };
+
+    this.conn.onopen = function (e) {
+      _this.conn.send('UserA entered the room!');
+    };
+
+    document.getElementById('send').addEventListener('click', function () {
+      var msg = document.getElementById('input').value;
+
+      _this.conn.send(msg);
+
+      _this.sshow('send', msg);
+    });
   }
 });
 
@@ -28930,6 +28973,28 @@ var render = function () {
       _c("site-footer", { on: { show: _vm.show } }),
       _vm._v(" "),
       _c("cookie-consent"),
+      _vm._v(" "),
+      _c("div", { staticClass: "wait" }, [
+        _c("input", { attrs: { id: "input", type: "text", size: "40" } }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            attrs: { id: "send" },
+            on: {
+              click: function ($event) {
+                return _vm.sendMessage()
+              },
+            },
+          },
+          [_vm._v("Send")]
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", { attrs: { id: "log" } }),
+        _vm._v("\n        " + _vm._s(_vm.info) + "\n    "),
+      ]),
     ],
     1
   )

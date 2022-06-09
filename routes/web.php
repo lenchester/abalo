@@ -42,3 +42,4 @@ Route::prefix('learnvue')->group(function (){
 Route::get('/newsite', [\App\Http\Controllers\ArticleController::class, 'ausgabeNewsite']);
 
 
+Route::get('/maintenance', [\App\Http\Controllers\ArticleController::class, 'maintenanceMode']);

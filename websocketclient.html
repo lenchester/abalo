@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+HTML Seite, die eine WebSocket-Verbindung aufbaut und
+Nachrichten empfängt und versendet. Verwendet Port 8085.
+
+Kann an jedem beliebigen Ort geöffnet werden.
+
+Inbetriebnahme des Beispiels:
+1)  websocketserver.php in das Laravel-Wurzelverzeichnis kopieren,
+    Abhängigkeiten über composer installieren.
+    und dort über die Kommandozeile "php websocketserver.php" (wss) starten
+2)  websocketclient.php (wsc.php) in das Laravel-Wurzelverzeichnis kopieren,
+    Abhängigkeiten über composer installieren.
+3)  websocketclient.html (wsc.html) (diese Datei) mit dem Webbrowser öffnen.
+    ** Nach dem Öffnen versendet wsc.html sofort eine Nachricht (via onopen()).
+    ** Es erscheint in der Ausgabe von wss: "UserA entered the room!"
+4)  In wsc.html testweise "42" als Nachricht eingeben und abschicken.
+    ** Es erscheint in der Ausgabe von wss: "Received: 42"
+5)  wsc.php starten: "php websocketclient.php"
+    ** Es erscheint in der Ausgabe von wss: "Received: Hello to everyone!"
+    ** Es erscheint in der Ausgabe von wsc.html: "received: Hello to everyone!"
+    * Ausführung der Datei abbrechen mit CTRL+C.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket: Client</title>
+</head>
+<body>
+  <div id="app">
+    <input id="input" type="text" size="40">
+    <button id="send">Send</button>
+    <hr>
+    <ul id="log"></ul>
+  </div>
+<script>
+    function show(direction, msg) {
+        let li = document.createElement('li');
+        li.innerHTML = direction + ': ' + msg;
+        document.getElementById('log').append(li);
+    }
+
+    let conn = new WebSocket('ws://localhost:8085/chat');
+    conn.onmessage = function(e) {
+        console.log('Received', e.data);
+        show('received', e.data);
+    };
+    conn.onopen = function(e) {
+        conn.send('UserA entered the room!');
+    };
+    document.getElementById('send').addEventListener('click', () => {
+        const msg = document.getElementById('input').value;
+        conn.send(msg);
+        show('send', msg);
+    });
+</script>
+</body>
+</html>
