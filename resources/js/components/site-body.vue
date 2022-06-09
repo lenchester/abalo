@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content">
     <div v-if="this.showImpressum===false">
         Search:<br>
         <input type="text" v-model="search" v-on:keyup="getArticleListInit"><br>

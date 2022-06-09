@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="header">
     <ul>
         <li>Home</li>
         <li>Kategorien</li>
