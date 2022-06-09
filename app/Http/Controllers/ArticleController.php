@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\NewArticleRequest;
 use mysql_xdevapi\Exception;
+use App\Services\myWebsocketClient;
 
 class ArticleController extends Controller
 {
@@ -74,6 +75,11 @@ class ArticleController extends Controller
 
     public function periodicAjaxRequest(Request $request){
         return view('3-ajax2-periodic');
+    }
+
+    public function maintenanceMode(){
+        $socket = new myWebsocketClient();
+        $socket->sendMessage();
     }
 
 
