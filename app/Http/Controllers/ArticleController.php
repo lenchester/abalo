@@ -79,7 +79,7 @@ class ArticleController extends Controller
 
     public function maintenanceMode(){
         $socket = new myWebsocketClient();
-        $socket->sendMessage();
+        $socket->sendMessage('In Kürze verbessern wir Abalo für Sie! Nach einer kurzen Pause sind wir wieder für Sie da! Versprochen.');
     }
 
 

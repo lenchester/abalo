@@ -6,12 +6,15 @@ namespace App\Http\Controllers;
 use App\Models\ab_article;
 use App\Models\ab_shoppingcart;
 use App\Models\ab_shoppingcart_item;
+use App\Services\myWebsocketClient;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+//use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\NewArticleRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth;
 
 class ArticleAPIController extends Controller
 {
@@ -47,7 +50,7 @@ class ArticleAPIController extends Controller
     {
         $search = $request->get('search');
         $offset = $request->get('offset');
-        Log::debug(auth()->id());
+        //Log::debug(auth()->id());
         //Log::debug($offset);
         if($request->get('shoppingcartid') != null)
         {
@@ -146,5 +149,34 @@ class ArticleAPIController extends Controller
             ->where('id', '=', $shoppingcartid)
             ->delete();
         return response()->json(null);
+    }
+
+    public function sold($id)
+    {
+        $article = DB::table('ab_articles')->where('id', $id)->get()->first();
+        $user = DB::table('users')->where('id', $article->ab_creator_id)->get()->first();
+//        $msg = [
+//            "type" => 'sold',
+//            "user_id" => $user->id,
+//            "article_name" => $article->ab_name
+//        ];
+        $article_name = $article->ab_name;
+        $msg = "Grossartig! Ihr Artikel $article_name wurde erfolgreich verkauf!";
+        $msgJSON = json_encode($msg);
+        $socket = new myWebsocketClient();
+        $socket->sendMessage($msgJSON);
+    }
+
+    public function isLogged(Request $request) {
+        Log::debug(auth()->id());
+        if(auth()->id())
+        {
+            $isLogged = ['isLogged' => true];
+        }
+        else
+        {
+            $isLogged = ['isLogged' => false];
+        }
+        return response()->json($isLogged);
     }
 }
