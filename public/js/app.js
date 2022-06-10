@@ -5424,7 +5424,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -5461,29 +5460,29 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    this.conn = new WebSocket('ws://localhost:8085/chat');
-    this.user_id = 5; //mocked
-
-    this.conn.onmessage = function (e) {
-      if (e.data != null && e.data !== "") {
-        // axios.post('/api/islogged', { withCredentials: true }).then(response => {
-        //     console.log(response);
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // })
-        if (_this.user_id === 5) {
-          alert(e.data);
-        }
-      } // console.log(e.data);
-      // this.info = e.data;
-
-    };
-
-    this.conn.onopen = function (e) {
-      _this.conn.send('UserA entered the room!');
-    };
-
+    // this.conn = new WebSocket('ws://localhost:8085/chat');
+    // this.user_id = 5; //mocked
+    // this.conn.onmessage = (e) => {
+    //     if(e.data != null && e.data !== "")
+    //     {
+    //         // axios.post('/api/islogged', { withCredentials: true }).then(response => {
+    //         //     console.log(response);
+    //         // })
+    //         // .catch(error => {
+    //         //     console.log(error);
+    //         // })
+    //         if(this.user_id === 5)
+    //         {
+    //             alert(e.data);
+    //         }
+    //
+    //     }
+    //     // console.log(e.data);
+    //     // this.info = e.data;
+    // };
+    // this.conn.onopen = (e) => {
+    //     this.conn.send('UserA entered the room!');
+    // };
     document.getElementById('send').addEventListener('click', function () {
       var msg = document.getElementById('input').value;
 
@@ -5614,6 +5613,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "site-body",
   data: function data() {
@@ -5634,16 +5651,47 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.getArticleListInit();
+    this.conn = new WebSocket('ws://localhost:8085/chat');
+    this.user_id = 5; //mocked
+
+    this.conn.onmessage = function (e) {
+      if (e.data != null && e.data !== "") {
+        // axios.post('/api/islogged', { withCredentials: true }).then(response => {
+        //     console.log(response);
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
+        if (_this.user_id === 5) {
+          //alert(e.data);
+          var item_id = parseInt(e.data);
+
+          for (var i = 0; i < _this.items.length; i++) {
+            if (_this.items[i].id === item_id) {
+              _this.items[i].on_sale = true;
+            }
+          }
+        }
+      } // console.log(e.data);
+      // this.info = e.data;
+
+    };
+
+    this.conn.onopen = function (e) {
+      _this.conn.send('UserA entered the room!');
+    };
   },
   computed: {
     itemfilter: function itemfilter() {
-      var _this = this;
+      var _this2 = this;
 
       console.log(this.search.length > 2);
       return this.items.filter(function (article) {
-        if (_this.search.length > 2) {
-          return article.ab_name.toLowerCase().match(_this.search.toLowerCase());
+        if (_this2.search.length > 2) {
+          return article.ab_name.toLowerCase().match(_this2.search.toLowerCase());
         } else {
           return true;
         }
@@ -5652,7 +5700,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addToCart: function addToCart(itemId) {
-      var _this2 = this;
+      var _this3 = this;
 
       var xhr = new XMLHttpRequest();
       var params = new FormData();
@@ -5671,27 +5719,27 @@ __webpack_require__.r(__webpack_exports__);
             self.shoppingcartid = response_shoppingcartid;
           }
 
-          console.log(_this2);
+          console.log(_this3);
 
-          _this2.getCart();
+          _this3.getCart();
 
-          _this2.getPage(_this2.offset);
+          _this3.getPage(_this3.offset);
         }
       };
 
       xhr.send(params);
     },
     removeFromCart: function removeFromCart(itemId) {
-      var _this3 = this;
+      var _this4 = this;
 
       var xhr = new XMLHttpRequest();
       xhr.open("DELETE", "/api/newsite/removefromcart/" + self.shoppingcartid + "/" + itemId);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          _this3.getCart();
+          _this4.getCart();
 
-          _this3.getPage(_this3.offset);
+          _this4.getPage(_this4.offset);
 
           if (xhr.responseText == '{}') {
             self.shoppingcartid = null;
@@ -5703,7 +5751,7 @@ __webpack_require__.r(__webpack_exports__);
       xhr.send();
     },
     getCart: function getCart() {
-      var _this4 = this;
+      var _this5 = this;
 
       console.log("getCart called");
       var params = new URLSearchParams();
@@ -5711,11 +5759,11 @@ __webpack_require__.r(__webpack_exports__);
       fetch('/api/newsite/shoppingcartitems?' + params.toString()).then(function (data) {
         return data.json();
       }).then(function (data) {
-        _this4.shoppingcart = data;
+        _this5.shoppingcart = data;
       });
     },
     getPage: function getPage(offset) {
-      var _this5 = this;
+      var _this6 = this;
 
       if (offset !== null) {
         this.offset = offset;
@@ -5737,13 +5785,18 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         console.log(data);
         console.log("shoppingcartid in getPage = " + self.shoppingcartid);
-        _this5.items = data;
+
+        for (var i = 0; i < data.length; i++) {
+          data[i].on_sale = false;
+        }
+
+        _this6.items = data;
       })["catch"](function (err) {
         return console.log(err.message);
       });
     },
     getArticleListInit: function getArticleListInit() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (this.search.length > 2 || this.search.length === 0) {
         this.offset = 0;
@@ -5758,12 +5811,12 @@ __webpack_require__.r(__webpack_exports__);
           return data.json();
         }).then(function (data) {
           var json = data;
-          _this6.pagesamount = json[0].count;
-          console.log(_this6.pagesamount);
+          _this7.pagesamount = json[0].count;
+          console.log(_this7.pagesamount);
 
-          _this6.generateButtons();
+          _this7.generateButtons();
 
-          _this6.getPage();
+          _this7.getPage();
         })["catch"](function (err) {
           return console.log(err.message);
         });
@@ -5783,6 +5836,23 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.pagebuttons = assocArray;
+    },
+    promote: function promote(item_id) {
+      for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i].id === item_id) {
+          this.items[i].on_sale = true;
+          var item = {
+            'item_id': item_id,
+            'on_sale': true
+          };
+          var url = '/api/' + item_id + '/makeoffer';
+          axios.post(url).then(function (response) {
+            console.log(response);
+          })["catch"](function (error) {
+            return console.log(error);
+          });
+        }
+      }
     }
   }
 });
@@ -29278,6 +29348,35 @@ var render = function () {
                             ]
                           ),
                         ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          item.promotable === true
+                            ? _c(
+                                "button",
+                                {
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.promote(item.id)
+                                    },
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    promote\n                "
+                                  ),
+                                ]
+                              )
+                            : _vm._e(),
+                        ]),
+                        _vm._v(" "),
+                        item.on_sale
+                          ? _c("td", [
+                              _vm._v(
+                                "\n                on sale!!!\n            "
+                              ),
+                            ])
+                          : _vm._e(),
                       ])
                     }),
                     0
@@ -29314,6 +29413,35 @@ var render = function () {
                             ]
                           ),
                         ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          item.promotable === true
+                            ? _c(
+                                "button",
+                                {
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.promote(item.id)
+                                    },
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    promote\n                "
+                                  ),
+                                ]
+                              )
+                            : _vm._e(),
+                        ]),
+                        _vm._v(" "),
+                        item.on_sale
+                          ? _c("td", [
+                              _vm._v(
+                                "\n                on sale!!!\n            "
+                              ),
+                            ])
+                          : _vm._e(),
                       ])
                     }),
                     0

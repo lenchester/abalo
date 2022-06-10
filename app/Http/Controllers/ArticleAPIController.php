@@ -73,7 +73,15 @@ class ArticleAPIController extends Controller
                 ->offset($offset)
                 ->get();
         }
-
+        $available_articles->toArray();
+        Log::debug(get_class($available_articles));
+        foreach ($available_articles as $article)
+        {
+            if($article->ab_creator_id == 5)
+            {
+                $article->promotable = true;
+            }
+        }
         return response()->json($available_articles);
     }
     public function number_of_search_results(Request $request){
@@ -155,11 +163,6 @@ class ArticleAPIController extends Controller
     {
         $article = DB::table('ab_articles')->where('id', $id)->get()->first();
         $user = DB::table('users')->where('id', $article->ab_creator_id)->get()->first();
-//        $msg = [
-//            "type" => 'sold',
-//            "user_id" => $user->id,
-//            "article_name" => $article->ab_name
-//        ];
         $article_name = $article->ab_name;
         $msg = "Grossartig! Ihr Artikel $article_name wurde erfolgreich verkauf!";
         $msgJSON = json_encode($msg);
@@ -167,7 +170,14 @@ class ArticleAPIController extends Controller
         $socket->sendMessage($msgJSON);
     }
 
-    public function isLogged(Request $request) {
+    public function makeoffer($id)
+    {
+        $socket = new myWebsocketClient();
+        $socket->sendMessage($id);
+    }
+
+    public function isLogged(Request $request)
+    {
         Log::debug(auth()->id());
         if(auth()->id())
         {
@@ -179,4 +189,6 @@ class ArticleAPIController extends Controller
         }
         return response()->json($isLogged);
     }
+
+
 }

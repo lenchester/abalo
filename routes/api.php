@@ -43,7 +43,7 @@ Route::get('/newsite/search', [ArticleAPIController::class, 'search_offset']);
 Route::get('/newsite/getsearchnumber', [ArticleAPIController::class,'number_of_search_results']);
 Route::post('/islogged', [ArticleAPIController::class, 'isLogged']);
 Route::get('/{id}/sold', [ArticleAPIController::class, 'sold']);
-
+Route::post('/{id}/makeoffer', [ArticleAPIController::class, 'makeoffer']);
 
 
 
