@@ -14,6 +14,7 @@
             </tr>
             <tbody v-if="this.search.length > 2" >
             <tr v-for="item in items" :key="item.ab_name">
+
                 <td class="shop-item-title">{{ item.ab_name }}</td>
                 <td class="shop-item-price">{{ item.ab_price }}</td>
                 <td>{{ item.ab_description }}</td>
@@ -24,10 +25,19 @@
                         add to cart
                     </button>
                 </td>
+                <td>
+                    <button v-if="item.promotable === true" type="button" v-on:click="promote(item.id)">
+                        promote
+                    </button>
+                </td>
+                <td v-if="item.on_sale">
+                    on sale!!!
+                </td>
             </tr>
             </tbody>
             <tbody v-else>
             <tr v-for="item in itemfilter" :key="item.ab_name">
+
                 <td>{{ item.ab_name }}</td>
                 <td>{{ item.ab_price }}</td>
                 <td>{{ item.ab_description }}</td>
@@ -37,6 +47,14 @@
                     <button type="button" v-on:click="addToCart(item.id)">
                         add to cart
                     </button>
+                </td>
+                <td>
+                    <button v-if="item.promotable === true" type="button" v-on:click="promote(item.id)">
+                        promote
+                    </button>
+                </td>
+                <td v-if="item.on_sale">
+                    on sale!!!
                 </td>
             </tr>
             </tbody>
@@ -127,6 +145,36 @@ export default {
     },
     mounted() {
         this.getArticleListInit();
+        this.conn = new WebSocket('ws://localhost:8085/chat');
+        this.user_id = 5; //mocked
+        this.conn.onmessage = (e) => {
+            if(e.data != null && e.data !== "")
+            {
+                // axios.post('/api/islogged', { withCredentials: true }).then(response => {
+                //     console.log(response);
+                // })
+                // .catch(error => {
+                //     console.log(error);
+                // })
+                if(this.user_id === 5)
+                {
+                    //alert(e.data);
+                    let item_id = parseInt(e.data);
+                    for(let i = 0; i < this.items.length; i++)
+                    {
+                        if(this.items[i].id === item_id)
+                        {
+                            this.items[i].on_sale = true;
+                        }
+                    }
+                }
+            }
+            // console.log(e.data);
+            // this.info = e.data;
+        };
+        this.conn.onopen = (e) => {
+            this.conn.send('UserA entered the room!');
+        };
     },
     computed: {
         itemfilter: function () {
@@ -205,6 +253,10 @@ export default {
             fetch('./api/newsite/search' +'?'+ params.toString()).then(data => data.json()).then(data => {
                 console.log(data);
                 console.log("shoppingcartid in getPage = " + self.shoppingcartid);
+                for(let i = 0; i < data.length; i++)
+                {
+                    data[i].on_sale = false;
+                }
                 this.items = data;
             })
                 .catch(err => console.log(err.message));
@@ -240,6 +292,23 @@ export default {
                 pagenumber++;
             }
             this.pagebuttons = assocArray;
+        },
+        promote(item_id) {
+            for(let i = 0; i < this.items.length; i++)
+            {
+                if(this.items[i].id === item_id)
+                {
+                    this.items[i].on_sale = true;
+                    let item = {
+                        'item_id':item_id,
+                        'on_sale':true
+                    }
+                    let url = '/api/' + item_id + '/makeoffer';
+                    axios.post(url).then(response => {
+                        console.log(response);
+                    }).catch(error => console.log(error));
+                }
+            }
         }
     }
 }

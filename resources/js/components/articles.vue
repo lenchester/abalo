@@ -12,7 +12,6 @@
             <ul id="log"></ul>
             {{info}}
         </div>
-
     </div>
 </template>
 
@@ -52,29 +51,29 @@ export default {
 
     },
     mounted() {
-        this.conn = new WebSocket('ws://localhost:8085/chat');
-        this.user_id = 5; //mocked
-        this.conn.onmessage = (e) => {
-            if(e.data != null && e.data !== "")
-            {
-                // axios.post('/api/islogged', { withCredentials: true }).then(response => {
-                //     console.log(response);
-                // })
-                // .catch(error => {
-                //     console.log(error);
-                // })
-                if(this.user_id === 5)
-                {
-                    alert(e.data);
-                }
-
-            }
-            // console.log(e.data);
-            // this.info = e.data;
-        };
-        this.conn.onopen = (e) => {
-            this.conn.send('UserA entered the room!');
-        };
+        // this.conn = new WebSocket('ws://localhost:8085/chat');
+        // this.user_id = 5; //mocked
+        // this.conn.onmessage = (e) => {
+        //     if(e.data != null && e.data !== "")
+        //     {
+        //         // axios.post('/api/islogged', { withCredentials: true }).then(response => {
+        //         //     console.log(response);
+        //         // })
+        //         // .catch(error => {
+        //         //     console.log(error);
+        //         // })
+        //         if(this.user_id === 5)
+        //         {
+        //             alert(e.data);
+        //         }
+        //
+        //     }
+        //     // console.log(e.data);
+        //     // this.info = e.data;
+        // };
+        // this.conn.onopen = (e) => {
+        //     this.conn.send('UserA entered the room!');
+        // };
         document.getElementById('send').addEventListener('click', () => {
             const msg = document.getElementById('input').value;
             this.conn.send(msg);
