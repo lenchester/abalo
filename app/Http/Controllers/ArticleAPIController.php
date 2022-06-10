@@ -47,7 +47,8 @@ class ArticleAPIController extends Controller
     {
         $search = $request->get('search');
         $offset = $request->get('offset');
-        Log::debug($offset);
+        Log::debug(auth()->id());
+        //Log::debug($offset);
         if($request->get('shoppingcartid') != null)
         {
             $available_articles = DB::table('ab_articles')

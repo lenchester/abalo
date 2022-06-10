@@ -16,7 +16,7 @@ class newarticleAPIController extends Controller
         $newArticle->ab_name = $request->post('article_name');
         $newArticle->ab_price = $request->post('article_price');
         $newArticle->ab_description = $request->post('article_desc');
-        $newArticle->ab_creator_id = '5';
+        $newArticle->ab_creator_id = auth()->id();
         $newArticle->ab_createdate = '1970-01-01 00:00:00';
         try {
             $newArticle->save();

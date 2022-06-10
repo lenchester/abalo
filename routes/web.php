@@ -43,3 +43,7 @@ Route::get('/newsite', [\App\Http\Controllers\ArticleController::class, 'ausgabe
 
 
 Route::get('/maintenance', [\App\Http\Controllers\ArticleController::class, 'maintenanceMode']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
