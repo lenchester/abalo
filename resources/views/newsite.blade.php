@@ -11,6 +11,9 @@
 <div id='app'>
     <articles></articles>
 </div>
+@auth
+     The data only available for auth user
+@endauth
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

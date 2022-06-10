@@ -41,6 +41,9 @@ Route::delete('/newsite/removefromcart/{shoppingcartid}/{articleid}', [ArticleAP
 Route::delete('/newsite/emptycart/{shoppingcartid}', [ArticleAPIController::class, 'remove_all_from_cart']);
 Route::get('/newsite/search', [ArticleAPIController::class, 'search_offset']);
 Route::get('/newsite/getsearchnumber', [ArticleAPIController::class,'number_of_search_results']);
+Route::post('/islogged', [ArticleAPIController::class, 'isLogged']);
+Route::get('/{id}/sold', [ArticleAPIController::class, 'sold']);
+
 
 
 

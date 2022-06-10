@@ -5441,7 +5441,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       conn: null,
       showImpressum: false,
-      info: ""
+      info: "",
+      user_id: null
     };
   },
   methods: {
@@ -5461,10 +5462,19 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.conn = new WebSocket('ws://localhost:8085/chat');
+    this.user_id = 5; //mocked
 
     this.conn.onmessage = function (e) {
       if (e.data != null && e.data !== "") {
-        alert(e.data);
+        // axios.post('/api/islogged', { withCredentials: true }).then(response => {
+        //     console.log(response);
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
+        if (_this.user_id === 5) {
+          alert(e.data);
+        }
       } // console.log(e.data);
       // this.info = e.data;
 
