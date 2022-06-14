@@ -48,13 +48,58 @@ body {
   grid-area: content;
   position: relative;
 }
+.content__btn {
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+}
+.content__btn--addtocart {
+  color: white;
+  background-color: #5F6975;
+}
+.content__btn--promote {
+  color: white;
+  background-color: #608385;
+}
 
 .header {
   grid-area: header;
 }
-
-.footer {
-  grid-area: footer;
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.header ul a {
+  margin: 0;
+  text-align: center;
+  padding: 12px 15px 12px 15px;
+  background: #5F6975;
+  color: white;
+  display: block;
+  text-decoration: none;
+}
+.header__main-menu > li {
+  display: inline-block;
+  margin-left: -5px;
+}
+.header li:hover > a {
+  background: #4B545F;
+  cursor: pointer;
+}
+.header__sub-menu {
+  position: absolute;
+  display: none;
+}
+.header__sub-menu li {
+  border-top: 1px solid #575F6A;
+  border-bottom: 1px solid #6B727C;
+  position: relative;
+}
+.header__main-menu > li:hover .header__sub-menu {
+  display: block;
 }
 
 .container {
@@ -64,6 +109,10 @@ body {
   grid-template-columns: 1fr 2fr 2fr;
   grid-template-areas: "header  header  header" "sidebar content content" "footer  footer  footer";
   color: #444;
+}
+
+.footer {
+  grid-area: footer;
 }
 
 .box {

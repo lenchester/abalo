@@ -11,4 +11,5 @@ class ab_shoppingcart extends Model
     protected $table = 'ab_shoppingcart';
 
     public $timestamps = false;
+
 }

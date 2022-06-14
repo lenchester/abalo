@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\ab_article;
 use App\Models\ab_shoppingcart;
 use App\Models\ab_shoppingcart_item;
-use App\Services\myWebsocketClient;
+use App\Helpers\myWebsocketClient;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 //use Illuminate\Support\Facades\Auth;
@@ -22,36 +22,18 @@ class ArticleAPIController extends Controller
     {
         $search = $request->get('search');
         if ($search) {
-            $articles = DB::table('ab_articles')->select('ab_name', 'ab_price')->where('ab_name', 'ILIKE', '%' . $search . '%')->get();
-        } else {
+            $articles = ab_article::query()->select('ab_name', 'ab_price')->where('ab_name', 'ILIKE', '%' . $search . '%')->get();
+        }
+        else {
             $articles = ab_article::all();
         }
         return response()->json($articles);
-    }
-
-    public function available_articles(Request $request)
-    {
-        if($request->get('shoppingcartid') != null)
-        {
-            $available_articles = DB::table('ab_articles')
-                ->leftJoin('ab_shoppingcart_item', 'ab_articles.id', '=', 'ab_shoppingcart_item.ab_article_id')
-                ->whereNull('ab_shoppingcart_item.id')
-                ->select('ab_articles.*')->limit(5)->orderBy('ab_name')->get();
-        }
-        else
-        {
-            $available_articles = DB::table('ab_articles')->select('ab_articles.*')->orderBy('ab_name')->limit(5)->get();
-        }
-
-        return response()->json($available_articles);
     }
 
     public function search_offset(Request $request)
     {
         $search = $request->get('search');
         $offset = $request->get('offset');
-        //Log::debug(auth()->id());
-        //Log::debug($offset);
         if($request->get('shoppingcartid') != null)
         {
             $available_articles = DB::table('ab_articles')
@@ -107,10 +89,7 @@ class ArticleAPIController extends Controller
 
     public function shoppingcart_items(Request $request)
     {
-        $shoppingcart_items = DB::table('ab_shoppingcart_item')
-            ->where('ab_shoppingcart_item.ab_shoppingcart_id', '=', $request->get('shoppingcartid'))
-            ->join('ab_articles', 'ab_articles.id', '=', 'ab_shoppingcart_item.ab_article_id')
-            ->select('ab_articles.id', 'ab_articles.ab_name', 'ab_articles.ab_price', 'ab_shoppingcart_item.ab_shoppingcart_id')->get();
+        $shoppingcart_items = ab_shoppingcart_item::getShoppingCartItems($request->get('shoppingcartid'));
         return response()->json($shoppingcart_items);
     }
 
@@ -119,7 +98,6 @@ class ArticleAPIController extends Controller
         $shoppingcartid = $request->post('shoppingcartid');
         $articleid = $request->post('articleid');
         $creatorid = $request->post('creatorid');
-
         if($shoppingcartid == null)
         {
             $newshoppingcart = new ab_shoppingcart();
@@ -161,8 +139,8 @@ class ArticleAPIController extends Controller
 
     public function sold($id)
     {
-        $article = DB::table('ab_articles')->where('id', $id)->get()->first();
-        $user = DB::table('users')->where('id', $article->ab_creator_id)->get()->first();
+        $article = ab_article::query()->where('id', $id)->get()->first();
+        $user = ab_article::query()->where('id', $article->ab_creator_id)->get()->first();
         $article_name = $article->ab_name;
         $msg = "Grossartig! Ihr Artikel $article_name wurde erfolgreich verkauf!";
         $msgJSON = json_encode($msg);
@@ -175,20 +153,4 @@ class ArticleAPIController extends Controller
         $socket = new myWebsocketClient();
         $socket->sendMessage($id);
     }
-
-    public function isLogged(Request $request)
-    {
-        Log::debug(auth()->id());
-        if(auth()->id())
-        {
-            $isLogged = ['isLogged' => true];
-        }
-        else
-        {
-            $isLogged = ['isLogged' => false];
-        }
-        return response()->json($isLogged);
-    }
-
-
 }

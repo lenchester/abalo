@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\NewArticleRequest;
 use mysql_xdevapi\Exception;
-use App\Services\myWebsocketClient;
+use App\Helpers\myWebsocketClient;
 
 class ArticleController extends Controller
 {

@@ -44,12 +44,12 @@
                 <td>{{ item.ab_creator_id }}</td>
                 <td>{{ item.ab_createdate }}</td>
                 <td>
-                    <button type="button" v-on:click="addToCart(item.id)">
+                    <button type="button" class="content__btn--addtocart" v-on:click="addToCart(item.id)">
                         add to cart
                     </button>
                 </td>
                 <td>
-                    <button v-if="item.promotable === true" type="button" v-on:click="promote(item.id)">
+                    <button v-if="item.promotable === true" type="button" class="content__btn--promote" v-on:click="promote(item.id)">
                         promote
                     </button>
                 </td>

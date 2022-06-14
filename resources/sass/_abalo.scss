@@ -1,6 +1,10 @@
 @import "./node_modules/vue-cookieconsent-component/src/scss/cookie-consent";
 @import "./node_modules/vue-cookieconsent-component/src/scss/cookie-consent-bottom";
 @import "./node_modules/vue-cookieconsent-component/src/scss/cookie-consent-transition";
+
+$secondary-color: #608385;
+$main-color: #5F6975;
+
 body {
     margin: 40px;
 }
@@ -12,14 +16,65 @@ body {
 .content {
     grid-area: content;
     position: relative;
+    &__btn {
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        &--addtocart {
+            color: white;
+            background-color: $main-color;
+        }
+        &--promote {
+            color: white;
+            background-color: $secondary-color;
+        }
+    }
 }
 
 .header {
     grid-area: header;
-}
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-.footer {
-    grid-area: footer;
+    ul a{
+        margin: 0;
+        text-align: center;
+        padding: 12px 15px 12px 15px;
+        background: #5F6975;
+        color: white;
+        display: block;
+        text-decoration: none;
+    }
+
+    &__main-menu>li{
+        display: inline-block;
+        margin-left: -5px;
+    }
+
+    li:hover>a{
+        background: #4B545F;
+        cursor: pointer;
+    }
+
+    &__sub-menu{
+        position: absolute;
+        display: none;
+    }
+
+    &__sub-menu li{
+        border-top: 1px solid #575F6A;
+        border-bottom: 1px solid #6B727C;
+        position: relative;
+    }
+
+    &__main-menu>li:hover &__sub-menu{
+        display: block;
+    }
 }
 
 .container {
@@ -35,6 +90,9 @@ body {
     color: #444;
 }
 
+.footer {
+    grid-area: footer;
+}
 
 .box {
     background-color: #444;
@@ -42,10 +100,6 @@ body {
     border-radius: 5px;
     padding: 50px;
     font-size: 150%;
-}
-
-.header,
-.footer {
 }
 
 .topleft {

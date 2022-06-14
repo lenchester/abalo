@@ -5417,13 +5417,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5450,47 +5443,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     sendMessage: function sendMessage() {
       this.conn.send("Test");
-    },
-    sshow: function sshow(direction, msg) {
-      var li = document.createElement('li');
-      li.innerHTML = direction + ': ' + msg;
-      document.getElementById('log').append(li);
     }
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    // this.conn = new WebSocket('ws://localhost:8085/chat');
-    // this.user_id = 5; //mocked
-    // this.conn.onmessage = (e) => {
-    //     if(e.data != null && e.data !== "")
-    //     {
-    //         // axios.post('/api/islogged', { withCredentials: true }).then(response => {
-    //         //     console.log(response);
-    //         // })
-    //         // .catch(error => {
-    //         //     console.log(error);
-    //         // })
-    //         if(this.user_id === 5)
-    //         {
-    //             alert(e.data);
-    //         }
-    //
-    //     }
-    //     // console.log(e.data);
-    //     // this.info = e.data;
-    // };
-    // this.conn.onopen = (e) => {
-    //     this.conn.send('UserA entered the room!');
-    // };
-    document.getElementById('send').addEventListener('click', function () {
-      var msg = document.getElementById('input').value;
-
-      _this.conn.send(msg);
-
-      _this.sshow('send', msg);
-    });
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -29228,28 +29183,6 @@ var render = function () {
       _c("site-footer", { on: { show: _vm.show } }),
       _vm._v(" "),
       _c("cookie-consent"),
-      _vm._v(" "),
-      _c("div", { staticClass: "wait" }, [
-        _c("input", { attrs: { id: "input", type: "text", size: "40" } }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            attrs: { id: "send" },
-            on: {
-              click: function ($event) {
-                return _vm.sendMessage()
-              },
-            },
-          },
-          [_vm._v("Send")]
-        ),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", { attrs: { id: "log" } }),
-        _vm._v("\n        " + _vm._s(_vm.info) + "\n    "),
-      ]),
     ],
     1
   )
@@ -29399,6 +29332,7 @@ var render = function () {
                           _c(
                             "button",
                             {
+                              staticClass: "content__btn--addtocart",
                               attrs: { type: "button" },
                               on: {
                                 click: function ($event) {
@@ -29419,6 +29353,7 @@ var render = function () {
                             ? _c(
                                 "button",
                                 {
+                                  staticClass: "content__btn--promote",
                                   attrs: { type: "button" },
                                   on: {
                                     click: function ($event) {
@@ -29722,19 +29657,29 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "header" }, [
-      _c("ul", [
-        _c("li", [_vm._v("Home")]),
+      _c("ul", { staticClass: "header__main-menu" }, [
+        _c("li", [_c("a", { attrs: { href: "test.com" } }, [_vm._v("Home")])]),
         _vm._v(" "),
-        _c("li", [_vm._v("Kategorien")]),
+        _c("li", [
+          _c("a", { attrs: { href: "test.com" } }, [_vm._v("Kategorien")]),
+        ]),
         _vm._v(" "),
-        _c("li", [_vm._v("Verkaufen")]),
+        _c("li", [
+          _c("a", { attrs: { href: "test.com" } }, [_vm._v("Verkaufen")]),
+        ]),
         _vm._v(" "),
-        _c("li", [_vm._v("Unternehmen")]),
+        _c("li", [
+          _c("a", { attrs: { href: "test.com" } }, [_vm._v("Unternehmen")]),
+        ]),
         _vm._v(" "),
-        _c("ul", [
-          _c("li", [_vm._v("Philosophie")]),
+        _c("ul", { staticClass: "header__sub-menu" }, [
+          _c("li", [
+            _c("a", { attrs: { href: "test.com" } }, [_vm._v("Philosophie")]),
+          ]),
           _vm._v(" "),
-          _c("li", [_vm._v("Karriere")]),
+          _c("li", [
+            _c("a", { attrs: { href: "test.com" } }, [_vm._v("Karriere")]),
+          ]),
         ]),
       ]),
     ])
